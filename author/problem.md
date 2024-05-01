@@ -32,3 +32,40 @@ For each test case, output a line with a single string:
 
 - "YES" if the race circuit is possible.
 - "NO" otherwise.
+
+### Example
+
+#### Input
+
+```
+3
+
+5 4 10
+1 2 1
+2 3 2
+3 4 3
+4 5 4
+
+3 3 5
+1 2 1
+2 3 1
+3 1 1
+
+3 2 3
+1 2 1
+2 3 1
+```
+
+#### Output
+
+```
+YES
+YES
+NO
+```
+
+In the first test case, a race through crossroads 1, 2, 3, 4 and 5 can be set up with length exactly 10.
+
+In the second test case, a multi-lap race through crossroads 1, 2 and 3 can be setup with length at least 5.
+
+In the third test case, no race of length at least 3 can be set up.

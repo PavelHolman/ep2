@@ -8,4 +8,6 @@ Various generated inputs and corresponding outputs are available in the [generat
 
 To check the correctness of an implementation, you can simply use `diff` on the output and the provided output files.
 
+Checkout [main.cpp](./main.cpp) for reference solution and [gen.cpp](gen.cpp) for the test case generator.
+
 Feel free to proceed with implementing and testing your solution!

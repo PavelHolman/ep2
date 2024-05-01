@@ -1,0 +1,15 @@
+cmake_minimum_required(VERSION 3.27)
+project(untitled)
+
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_FLAGS "-Wall -Werror")
+#set(CMAKE_CXX_FLAGS "-Wall -O2 -Werror")
+
+add_executable(a 04/angry-programmer/main.cpp)
+add_executable(g 04/gopher/main.cpp)
+add_executable(p 04/play-on-words/main.cpp)
+add_executable(g-gen 04/gopher/generator.cpp)
+add_executable(g-brute 04/gopher/brute-force.cpp)
+add_executable(e 04/euler-circuit/main.cpp)
+add_executable(bfs-author bfs-author/main.cpp)
+add_executable(author author/main.cpp)

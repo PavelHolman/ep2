@@ -55,8 +55,9 @@ using vvi = vector<vi>;
 double convex_hull(vp &P) {
     if (sz(P) <= 1) return 0;
 
-    auto const p0 = *min_element(all(P));
-    P = vp(begin(P), std::remove(all(P), p0));
+    auto const it = min_element(all(P));
+    auto const p0 = *it;
+    P.erase(it);
 
     auto const angle = [](pii const &a, pii const &b) {
         auto const dx = b.first - a.first;
@@ -73,23 +74,23 @@ double convex_hull(vp &P) {
         return (x3 - x2) * (y2 - y1) - (y3 - y2) * (x2 - x1);
     };
 
-    vp st;
+    vp st{{p0}};
 
     for (auto const &p: P) {
-        while (sz(st) > 1 && dir(st[sz(st) - 2], st.back(), p) <= 0) { st.pop_back(); }
+        while (sz(st) > 1 && dir(st[sz(st) - 2], st.back(), p) >= 0) { st.pop_back(); }
         st.emplace_back(p);
     }
 
-    auto const distance = [](pii const &a, pii const &b) {
+    auto const d = [](pii const &a, pii const &b) {
         auto const [x1, y1] = a;
         auto const [x2, y2] = b;
         return sqrt(pow(x1 - x2, 2) + pow(y1 - y2, 2));
     };
 
-    double sum = distance(p0, st.front()) + distance(p0, st.back());
+    double sum = d(p0, st.back());
 
-    for (int i = 0, j = i + 1; j < sz(st); i++, j++) {
-        sum += distance(st[i], st[j]);
+    for (int i = 1; i < sz(st); i++) {
+        sum += d(st[i], st[i - 1]);
     }
 
     return sum;
@@ -99,9 +100,9 @@ void solve(int const n) {
     vector<pair<pii, pii>> a(n);
     cin >> a;
 
-    vector<pair<int, pair<int, bitset<16>>>> map;
+    vector<pair<int, pair<int, bitset<24>>>> map;
 
-    for (bitset<16> b = 0; b.to_ulong() < (1ll << n); b = b.to_ulong() + 1) {
+    for (bitset<24> b = 0; b.to_ulong() < (1ull << n); b = b.to_ulong() + 1) {
         int V = 0;
         int L = 0;
 

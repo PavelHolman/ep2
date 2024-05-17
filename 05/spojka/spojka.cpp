@@ -53,7 +53,44 @@ using vvi = vector<vi>;
 //endregion
 
 void solve() {
+    int n, m;
+    cin >> n >> m;
 
+    vector d(n, vector(n, optional<int>()));
+    for (int i = 0; i < n; i++) d[i][i] = 0;
+
+    for (int i = 0; i < m; i++) {
+        int u, v, w;
+        cin >> u >> v >> w;
+        u--, v--;
+
+        d[v][u] = d[u][v] = w;
+    }
+
+
+    for (int k = 0; k < n; k++)
+        for (int i = 0; i < n; i++)
+            for (int j = 0; j < n; j++) {
+                if (!d[i][k].has_value() || !d[k][j].has_value()) continue;
+
+                if (!d[i][j].has_value() || d[i][j] > *d[i][k] + *d[k][j])
+                    d[i][j] = *d[i][k] + *d[k][j];
+            }
+
+    int mx = MIN(int);
+
+    for (int i = 0; i < n; i++)
+        for (int j = 0; j < n; j++) {
+            auto x = d[i][j];
+            if (x.has_value()) {
+                mx = max(mx, *x);
+            } else {
+                cout << "Bez spojeni neni veleni!" << endl;
+                return;
+            }
+        }
+
+    cout << "Nejvetsi vzdalenost je " << mx << "." << endl;
 }
 
 signed main() {
